@@ -1,6 +1,5 @@
 header {
-    font-size: 75px;
-    text-align: center;
+    background-color: turquoise;
 }
 
 .time {
@@ -13,3 +12,16 @@ header {
 .score {
     margin-left: 20px;
 }
+
+.button {
+
+}
+
+
+
+@media screen and (min-width: 850px) {
+    .card {
+      max-width: 680px;
+    }
+  }
+  
