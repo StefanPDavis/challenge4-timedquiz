@@ -48,11 +48,6 @@ footer {
     justify-content: center;
 }
 
-
-#score {
-
-}
-
 .button {
     padding: 20px;
     margin-bottom: 10px;
@@ -61,8 +56,6 @@ footer {
 .question-page, .submit-page, .highscore-page, #check-answer {
     display:none;
 }
-
-
 
 @media screen and (min-width: 850px) {
     .card {

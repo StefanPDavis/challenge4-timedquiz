@@ -8,10 +8,10 @@ let questionPage = document.querySelector("#question-page");
 let askQuestion = document.querySelector("#ask-question");
 let introPage =document.querySelector("#intro-page");
 
-let answerBtn1 = document.querySelector("#answer-btn1");
-let answerBtn2 = document.querySelector("#answer-btn2");
-let answerBtn3 = document.querySelector("#answer-btn3");
-let answerBtn4 = document.querySelector("#answer-btn4");
+var answerBtn1 = document.querySelector("#answer-btn1");
+var answerBtn2 = document.querySelector("#answer-btn2");
+var answerBtn3 = document.querySelector("#answer-btn3");
+var answerBtn4 = document.querySelector("#answer-btn4");
 var checkAnswer = document.querySelector("#check-answer");
 let scoreBoard = document.querySelector("#submit-page");
 let finalScore = document.querySelector("#final-score");
@@ -24,9 +24,8 @@ let viewHighScore =document.querySelector("#viewHighScore");
 let finish =document.querySelector("#finish");
 let backBtn =document.querySelector("#back-btn");
 let clearBtn=document.querySelector("#clear-btn");
-let reactButtons = document.querySelectorAll(".choices");
 
-let questions = [
+var questions = [
     {
         question: "Questions 1 : String values must be enclosed within _____ when being assigned to variables.",
         choices: ["a. commas", "b. curly brackets", "c. quotes", "d. parenthesis"],
@@ -74,11 +73,17 @@ function setTime() {
         secondsLeft--;
         timeEl.textContent = "Time: " + secondsLeft;
 
-        if(secondsLeft === 0) {
+        if (secondsLeft <= 0){
             clearInterval(timerInterval);
-            sendMessage();
-        }
-    }, 1000);
+            timeEl.textContent = "Time's up!"; 
+            finish.textContent = "Time's up!";
+            gameOver();
+
+        } else  if(questionCount >= questions.length +1) {
+            clearInterval(timerInterval);
+            gameOver();
+            } 
+}, 1000);
 }
 
 function sendMessage() {
@@ -102,21 +107,21 @@ function showQuestion (n) {
     questionNumber = n;
 }
 
-function checkAnswer(event) {
+function checkChoice(event) {
     event.preventDefault();
-    checkLine.style.display = "block";
+    checkAnswer.style.display = "block";
     setTimeout(function () {
-        checkLine.style.display = 'none';
+        checkAnswer.style.display = 'none';
     }, 1000);
-    if (questionSource[questionNumber].answer == event.target.value) {
-        checkLine.textContent = "Correct!"; 
+    if (questions[questionNumber].answer == event.target.value) {
+        checkAnswer.textContent = "Correct!"; 
         totalScore = totalScore + 1;
 
     } else {
         secondsLeft = secondsLeft - 5;
-        checkLine.textContent = "Incorrect";
+        checkAnswer.textContent = "Incorrect";
     }
-    if (questionNumber < questionSource.length -1 ) {
+    if (questionNumber < questions.length -1 ) {
         showQuestion(questionNumber +1);
     } else {
     gameOver();
@@ -130,7 +135,7 @@ function gameOver() {
     scoreBoard.style.display = "block";
     console.log(scoreBoard);
     finalScore.textContent = "Your final score is :" + totalScore ;
-    timeLeft.style.display = "none"; 
+    timeEl.style.display = "none"; 
 };
 
 function getScore () {
@@ -145,8 +150,8 @@ function getScore () {
 };
 
 function renderScore () {
-    scoreRecord.innerHTML = "";
-    scoreRecord.style.display ="block";
+    scores.innerHTML = "";
+    scores.style.display ="block";
     let highScores = sort();   
     let topFive = highScores.slice(0,5);
     for (let i = 0; i < topFive.length; i++) {
@@ -154,9 +159,20 @@ function renderScore () {
     let li = document.createElement("li");
     li.textContent = item.user + " - " + item.score;
     li.setAttribute("data-index", i);
-    scoreRecord.appendChild(li);
+    scores.appendChild(li);
     }
 };
+
+function sort () {
+    let unsortedList = getScore();
+    if (getScore == null ){
+        return;
+    } else{
+    unsortedList.sort(function(a,b){
+        return b.score - a.score;
+    })
+    return unsortedList;
+}};
 
 function addItem (n) {
     let addedList = getScore();
@@ -164,12 +180,21 @@ function addItem (n) {
     localStorage.setItem("ScoreList", JSON.stringify(addedList));
 };
 
+function saveScore () {
+    var scoreItem ={
+        user: userInitial.value,
+        score: totalScore
+    }
+    addItem(scoreItem);
+    renderScore();
+}
+
 startBtn.addEventListener("click", startQuiz);
 
-reactButtons.forEach(function(click){
-
-    click.addEventListener("click", checkAnswer);
-});
+answerBtn1.addEventListener("click", checkChoice);
+answerBtn2.addEventListener("click", checkChoice);
+answerBtn3.addEventListener("click", checkChoice);
+answerBtn4.addEventListener("click", checkChoice);
 
 submitBtn.addEventListener("click", function(event) {
     event.preventDefault();
