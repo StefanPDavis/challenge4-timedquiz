@@ -6,6 +6,7 @@ header {
     display:flex;
     justify-content: space-between;
     font-size: xx-large;
+    background-color: darksalmon;
 }
 
 body {
@@ -13,14 +14,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
     justify-content: center;
+    background-color: burlywood;
 }
 
 main {
     text-align: center;
     justify-content: center;
     flex: 1 0 auto;
-    margin-left:200px;
-    margin-right:200px;
 }
 
 footer {
@@ -31,12 +31,25 @@ footer {
     align-items: flex-end;
 }
 
+.question-page {
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
 #score {
 
 }
 
 .button {
+    padding: 20px;
+    margin-bottom: 10px;
+}
 
+.question-page, .submit-page, .highscore-page, #check-answer {
+    display:none;
 }
 
 
