@@ -1,6 +1,8 @@
 let timeEl = document.querySelector(".time");
-let secondsLeft = 3;
+let secondsLeft = 75;
 let totalScore = 0;
+let questionCount = 1;
+let questionNumber = 1;
 
 let questions = [
     {

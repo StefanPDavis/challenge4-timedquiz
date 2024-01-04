@@ -9,14 +9,70 @@
 </head>
 <body>
     <header>
-    <h1 class="score" >High Scores</h1>
 
-    </header>   
-    <h2 class="time" ></h2>
+        <div></div>
+            <a href="#" id="viewHighScore">View High Scores</a>
+        </div>
 
-    <div id=start-card class="card">
-        <button id=start-button class="button">Start Quiz</button>
-    </div>
+        <div class="time"> Time: 75</div>
+
+    </header>
+
+    <main>
+        <div>
+            <h1>Coding Quiz</h1>
+        </div>
+
+        <div>
+            <p>You have 75 seconds to answer as best as you can. Wrong answers deduct time. Good luck!</p>
+        </div>
+
+        <div>
+            <button id=start-button class="button">Start Quiz</button>
+        </div>
+
+        <section class="question-page" id="question-page">
+            <div>
+                <div>
+                    <h2 id = "ask-question">Ask the question</h2>
+                    <ul>
+                        <li><button class ="choices button" id="answer_btn1" value="a">Answer1</button></li>
+                        <li><button class ="choices button" id="answer_btn2" value="b">Answer2</button></li>
+                        <li><button class ="choices button" id="answer_btn3" value="c">Answer3</button></li>
+                        <li><button class ="choices button" id="answer_btn4" value="d">Answer4</button></li>
+                    </ul>
+                <div>
+
+                <div id="check-answer">
+                    <p>Correct or Incorrect</p>
+            </div>
+        </section>
+
+        <section class="submit-page" id="submit-page">
+            <div>
+                <h2 id="finish">All Done!</h2>
+                <p id = "final-score">Your final score is: </p>
+                <p>Enter initials
+                    <input id="initial">
+                    <button class="button" id="submit-btn">Submit</button>
+                </p>
+            </div>
+        </section>
+
+        <section class="highscore-page" id ="highscore-page">
+            <div>
+                <h2>High Scores</h2>
+                <div id="scores"><p>Your High Scores</p></div><br><br>
+                <div>
+                    <button class="button" id="back-btn">Go back</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer>
+        Created by Stefan Davis
+    </footer>   
 
     <script src="./assets/script.js"></script>   
     

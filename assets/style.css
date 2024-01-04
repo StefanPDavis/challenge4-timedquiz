@@ -1,5 +1,9 @@
 header {
-    background-color: turquoise;
+
+}
+
+main {
+    text-align: center;
 }
 
 .time {
@@ -9,7 +13,7 @@ header {
     margin-top: 20px;
 }
 
-.score {
+#score {
     margin-left: 20px;
 }
 
