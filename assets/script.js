@@ -6,12 +6,13 @@ let questionNumber = 1;
 let startBtn = document.querySelector("#start-button");
 let questionPage = document.querySelector("#question-page");
 let askQuestion = document.querySelector("#ask-question");
+let introPage =document.querySelector("#intro-page");
 
 let answerBtn1 = document.querySelector("#answer-btn1");
 let answerBtn2 = document.querySelector("#answer-btn2");
 let answerBtn3 = document.querySelector("#answer-btn3");
 let answerBtn4 = document.querySelector("#answer-btn4");
-let checkAnswer = document.querySelector("#check-answer");
+var checkAnswer = document.querySelector("#check-answer");
 let scoreBoard = document.querySelector("#submit-page");
 let finalScore = document.querySelector("#final-score");
 let userInitial =document.querySelector("#initial");
@@ -21,7 +22,9 @@ let highScorePage =document.querySelector("#highscore-page");
 let scores =document.querySelector("#scores");
 let viewHighScore =document.querySelector("#viewHighScore");
 let finish =document.querySelector("#finish");
-let backBtn =document.querySelector("#back_btn");
+let backBtn =document.querySelector("#back-btn");
+let clearBtn=document.querySelector("#clear-btn");
+let reactButtons = document.querySelectorAll(".choices");
 
 let questions = [
     {
@@ -82,4 +85,121 @@ function sendMessage() {
     timeEl.textContent = "Time's up!";
 }
 
-setTime();
+function startQuiz () {
+    introPage.style.display = "none";
+    questionPage.style.display = "block";
+    questionNumber = 0
+    setTime();
+    showQuestion(questionNumber);
+}
+
+function showQuestion (n) {
+    askQuestion.textContent = questions[n].question;
+    answerBtn1.textContent = questions[n].choices[0];
+    answerBtn2.textContent = questions[n].choices[1];
+    answerBtn3.textContent = questions[n].choices[2];
+    answerBtn4.textContent = questions[n].choices[3];
+    questionNumber = n;
+}
+
+function checkAnswer(event) {
+    event.preventDefault();
+    checkLine.style.display = "block";
+    setTimeout(function () {
+        checkLine.style.display = 'none';
+    }, 1000);
+    if (questionSource[questionNumber].answer == event.target.value) {
+        checkLine.textContent = "Correct!"; 
+        totalScore = totalScore + 1;
+
+    } else {
+        secondsLeft = secondsLeft - 5;
+        checkLine.textContent = "Incorrect";
+    }
+    if (questionNumber < questionSource.length -1 ) {
+        showQuestion(questionNumber +1);
+    } else {
+    gameOver();
+}
+questionCount++;
+}
+
+function gameOver() {
+
+    questionPage.style.display = "none";
+    scoreBoard.style.display = "block";
+    console.log(scoreBoard);
+    finalScore.textContent = "Your final score is :" + totalScore ;
+    timeLeft.style.display = "none"; 
+};
+
+function getScore () {
+    let currentList =localStorage.getItem("ScoreList");
+    if (currentList !== null ){
+        freshList = JSON.parse(currentList);
+        return freshList;
+    } else {
+        freshList = [];
+    }
+    return freshList;
+};
+
+function renderScore () {
+    scoreRecord.innerHTML = "";
+    scoreRecord.style.display ="block";
+    let highScores = sort();   
+    let topFive = highScores.slice(0,5);
+    for (let i = 0; i < topFive.length; i++) {
+        let item = topFive[i];
+    let li = document.createElement("li");
+    li.textContent = item.user + " - " + item.score;
+    li.setAttribute("data-index", i);
+    scoreRecord.appendChild(li);
+    }
+};
+
+function addItem (n) {
+    let addedList = getScore();
+    addedList.push(n);
+    localStorage.setItem("ScoreList", JSON.stringify(addedList));
+};
+
+startBtn.addEventListener("click", startQuiz);
+
+reactButtons.forEach(function(click){
+
+    click.addEventListener("click", checkAnswer);
+});
+
+submitBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    scoreBoard.style.display = "none";
+    introPage.style.display = "none";
+    highScorePage.style.display = "block";
+    questionPage.style.display ="none";
+    saveScore();
+});
+
+viewHighScore.addEventListener("click", function(event) {
+    event.preventDefault();
+    scoreBoard.style.display = "none";
+    introPage.style.display = "none";
+    highScorePage.style.display = "block";
+    questionPage.style.display ="none";
+    renderScore();
+});
+
+backBtn.addEventListener("click",function(event){
+        event.preventDefault();
+        scoreBoard.style.display = "none";
+        introPage.style.display = "block";
+        highScorePage.style.display = "none";
+        questionPage.style.display ="none";
+        location.reload();
+});
+
+clearBtn.addEventListener("click",function(event) {
+    event.preventDefault();
+    localStorage.clear();
+    renderScore();
+});

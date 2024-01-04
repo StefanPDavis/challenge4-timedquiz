@@ -23,6 +23,16 @@ main {
     flex: 1 0 auto;
 }
 
+h1 {
+    font-size: 60px;
+    margin: 20px
+}
+
+p {
+    font-size: 25px;
+    margin: 5px;
+}
+
 footer {
     text-align: center;
 }
