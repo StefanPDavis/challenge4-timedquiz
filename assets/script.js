@@ -3,6 +3,25 @@ let secondsLeft = 75;
 let totalScore = 0;
 let questionCount = 1;
 let questionNumber = 1;
+let startBtn = document.querySelector("#start-button");
+let questionPage = document.querySelector("#question-page");
+let askQuestion = document.querySelector("#ask-question");
+
+let answerBtn1 = document.querySelector("#answer-btn1");
+let answerBtn2 = document.querySelector("#answer-btn2");
+let answerBtn3 = document.querySelector("#answer-btn3");
+let answerBtn4 = document.querySelector("#answer-btn4");
+let checkAnswer = document.querySelector("#check-answer");
+let scoreBoard = document.querySelector("#submit-page");
+let finalScore = document.querySelector("#final-score");
+let userInitial =document.querySelector("#initial");
+
+let submitBtn =document.querySelector("#submit-btn");
+let highScorePage =document.querySelector("#highscore-page");
+let scores =document.querySelector("#scores");
+let viewHighScore =document.querySelector("#viewHighScore");
+let finish =document.querySelector("#finish");
+let backBtn =document.querySelector("#back_btn");
 
 let questions = [
     {
