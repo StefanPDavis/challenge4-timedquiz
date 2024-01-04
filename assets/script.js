@@ -6,7 +6,7 @@ let questionNumber = 1;
 let startBtn = document.querySelector("#start-button");
 let questionPage = document.querySelector("#question-page");
 let askQuestion = document.querySelector("#ask-question");
-let introPage =document.querySelector("#intro-page");
+let introPage = document.querySelector("#intro-page");
 
 var answerBtn1 = document.querySelector("#answer-btn1");
 var answerBtn2 = document.querySelector("#answer-btn2");
@@ -118,7 +118,7 @@ function checkChoice(event) {
         totalScore = totalScore + 1;
 
     } else {
-        secondsLeft = secondsLeft - 5;
+        secondsLeft = secondsLeft - 10;
         checkAnswer.textContent = "Incorrect";
     }
     if (questionNumber < questions.length -1 ) {
